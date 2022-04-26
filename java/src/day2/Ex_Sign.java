@@ -1,0 +1,16 @@
+package day2;
+
+public class Ex_Sign {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//정수형 변수 num1을 선언 후 1로 초기화
+		int num1 = -1;
+		System.out.println(num1);
+		System.out.println(-num1);
+		
+		
+
+	}
+
+}
