@@ -16,19 +16,18 @@ public class Ex16_Test4 {
 			char op = '+';
 			if(op == '+') {
 				System.out.println(""+num1 + op + num2 + "=" + (num1 + num2));
-			if(op == '-') {
+			}if(op == '-') {
 				System.out.println(""+num1 + op + num2 + "=" + (num1 + num2));
 			if(op == '+') {
 				System.out.println(""+num1 + op + num2 + "=" + (num1 + num2));
-			if(op == '/') {
+			}if(op == '/') {
 				System.out.println(""+num1 + op + num2 + "=" + (num1 + num2));
-			if(op == '%') {
+			}if(op == '%') {
 			System.out.println(""+num1 + op + num2 + "=" + (num1 + num2));
-
+			
 			}
 			
-			
-			{
-			
+			}		
+		
 	}
-
+}
