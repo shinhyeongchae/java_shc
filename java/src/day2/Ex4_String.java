@@ -1,6 +1,6 @@
 package day2;
 
-public class Ex2_String {
+public class Ex4_String {
 
 	public static void main(String[] args) {
 		String str = "Hello";

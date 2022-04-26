@@ -1,6 +1,6 @@
 package day2;
 
-public class Ex2_increase {
+public class Ex3_increase {
 
 	public static void main(String[] args) {
 		/* 증감 연산자 : 최종저긍로 1증가 또는 1감수
