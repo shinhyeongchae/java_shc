@@ -28,7 +28,7 @@ public class Ex14_Test2 {
 					System.out.println(score+"점은 D학점");
 			}else if(score >= 0) {
 					System.out.println(score+"점은 F학점");
-			
+					
 				
 				
 		
