@@ -7,7 +7,7 @@ public class Ex6_char {
 
 	}  /* 문자 '' 안에 들어가는 한글자
 	  	예외 :p .34 */
-	
+
 		char ch1 = '\t'; //tab키 만큼 공백
 		char ch2 = '\n'; //엔터
 		char ch3 = '\r'; //커서를 앞으로 이동
@@ -22,12 +22,12 @@ public class Ex6_char {
 		char ch9 =(char)num;
 	
 
-		}
+		{	}		
 		
 		
 		
-
-		}
+		{					}		
+{		}}	
 
 		
 
