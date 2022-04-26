@@ -3,7 +3,7 @@ package day1;
 public class Ex6_char {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}  /* 문자 '' 안에 들어가는 한글자
 	  	예외 :p .34 */
@@ -17,16 +17,17 @@ public class Ex6_char {
 		char ch7 = '\u0000'; //유니코드에 0에 해당하는 문자 
 		char ch8 = 'A';
 		
-		
-		
-		
-		
+	
 		int num = 65;
-		char ch9 = (char)num;
-		System.out.println(ch9);
-		ch9 = (char)(num+1);
-		System.out.println(ch9);
+		char ch9 =(char)num;
+	
+
+		}
 		
-}		
+		
+		
+
+		}
+
 		
 
