@@ -14,6 +14,7 @@ public class Ex4_String {
 		System.out.println(str);
 		str = str + true;
 		System.out.println(str);
+
 	}
 
 }
