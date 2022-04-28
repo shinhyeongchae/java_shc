@@ -42,5 +42,6 @@ public class Ex15_For6_GCD {
 				}
 		}
 		System.out.println(num1 + "과 " + num2 + "의 최대 공약수 : " + gcd);
+		
 	}
 	}
