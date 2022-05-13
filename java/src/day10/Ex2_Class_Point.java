@@ -29,6 +29,6 @@ class Point1{
 		this(0,0);
 	}
 	public void print() {
-			System.out.println("차원 : " + dimensional);
+			System.out.println("차원 : " + dimensionaL);
 	}
 }
