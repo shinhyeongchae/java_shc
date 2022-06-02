@@ -62,6 +62,7 @@ select * from buytbl order by userId asc, prodname asc;
 -- select distinct 속성 from 테이블명 where 조건식;
 
 -- 회원들이 구매한 제품 목록을 조회
+-- 동일한 결과가 있을 때 distinct 사용
 select prodName from buytbl; -- 중복된 경우 
 select distinct prodName from buytbl;  -- 중복이 되지 않은 경우
 
