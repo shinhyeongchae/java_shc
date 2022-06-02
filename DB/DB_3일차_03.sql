@@ -8,7 +8,7 @@ birthYear INT NOT NULL, -- 출생 연도
 addr CHAR(2) NOT NULL, -- 지역(경기, 서울, 경남 식으로 2글자만 입력)
 mobile1 CHAR(3), -- 휴대폰의 국번(011, 016, 017, 018, 019, 010 등)
 mobile2 CHAR(8), -- 휴대폰의 나머지 번호(하이픈 제외)
-height SMALLINT, -- 키
+height SMALLINT, -- 키.
 mDate DATE -- 회원 가입일
 );
 CREATE TABLE IF NOT EXISTS buyTBL -- 구매 테이블
