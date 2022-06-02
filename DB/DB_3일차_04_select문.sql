@@ -6,7 +6,7 @@ select userID,userName from userTBL where birthYear between 1970 and 1979;
 select userName,height from userTBL where height between 180 and 182;
 -- height >= 180 and height <= 182;
 
--- 지역이 경남이거나 충남이거나 경북인 사람의 이름과 주소를 조회
+-- 지역이 경남이거나 충남이거나 경북인 사람의 이름과 주소를 조회.
 select userName,addr from userTBL where addr = '경남' or addr = '충남' or addr = '경북';
 select userName,addr from userTBL where addr in('경남','충남','경북');
 
