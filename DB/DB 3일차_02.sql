@@ -46,5 +46,5 @@ select * from 학생 where 이름 like '___';
 select * from 학생 where 학부 = '컴퓨터공학부' or '전자공학부'; 
 select * from 학생 where 학부 in('컴퓨터공학부' or '전자공학부');
 
-
+select 학부, count(*) as 학생수 from 학생 group by 학부;
 
