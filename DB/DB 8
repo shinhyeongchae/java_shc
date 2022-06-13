@@ -1,0 +1,223 @@
+drop database if exists cgv;
+create database cgv;
+use cgv;
+
+DROP TABLE IF EXISTS `cinema`;
+
+CREATE TABLE `cinema` (
+	`ci_num`	int	NOT NULL,
+	`ci_name`	varchar(20)	NULL,
+	`ci_type`	varchar(10)	NULL,
+	`ci_max_seat`	int	NULL,
+	`ci_th_name`	varchar(20)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `movies`;
+
+CREATE TABLE `movies` (
+	`mo_num`	int	NOT NULL,
+	`mo_title`	varchar(30)	NULL,
+	`mo_price`	varchar(9)	NULL,
+	`mo_actor`	varchar(30)	NULL,
+	`mo_genre`	varchar(6)	NULL,
+	`mo_basic`	int	NULL,
+	`mo_date`	date	NULL,
+	`mo_rating`	varchar(5)	NULL,
+	`ch_code`	varchar(15)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `reservation`;
+
+CREATE TABLE `reservation` (
+	`re_num`	int	NOT NULL,
+	`re_date`	date	NULL,
+	`re_time`	varchar(10)	NULL,
+	`re_seat`	varchar(10)	NULL,
+	`re_price`	varchar(15)	NULL,
+	`re_total_price`	int	NULL,
+	`re_us_id`	varchar(20)	NOT NULL,
+	`re_sc_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+	`us_id`	varchar(20)	NOT NULL,
+	`us_pw`	varchar(20)	NULL,
+	`us_name`	varchar(20)	NULL,
+	`us_birthe`	date	NULL,
+	`us_phone`	char(13)	NULL,
+	`us_addr`	varchar(50)	NULL
+);
+
+DROP TABLE IF EXISTS `reservation details`;
+
+CREATE TABLE `reservation details` (
+	`re_num`	int	NOT NULL,
+	`re_price`	int	NULL,
+	`rd_re_num`	int	NOT NULL,
+	`re_us_id`	varchar(20)	NOT NULL,
+	`rd_se_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `theater`;
+
+CREATE TABLE `theater` (
+	`th_name`	varchar(20)	NOT NULL,
+	`th_region`	varchar(10)	NULL,
+	`th_addr`	varchar(20)	NULL
+);
+
+DROP TABLE IF EXISTS `charactor`;
+
+CREATE TABLE `charactor` (
+	`ch_code`	varchar(15)	NOT NULL,
+	`ch_name`	varchar(15)	NULL,
+	`ch_birth`	date	NULL,
+	`ch_nationality`	char(15)	NULL,
+	`ch_job`	varchar(10)	NULL,
+	`ch_body`	varchar(20)	NULL,
+	`ch_plot`	varchar(500)NULL,
+	`ch_family`	varchar(10)	NULL,
+	`ch_site`	varchar(30)	NULL,
+	`mo_thumb`	varchar(50)	NULL
+);
+
+DROP TABLE IF EXISTS `screen`;
+
+CREATE TABLE `screen` (
+	`sc_num`	int	NOT NULL,
+	`sc_pos_seat`	int	NULL,
+	`sc_start_time`	datetime	NULL,
+	`sc_end_time`	datetime	NULL,
+	`sc_ci_num`	int	NOT NULL,
+	`sc_mo_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `seat`;
+
+CREATE TABLE `seat` (
+	`se_num`	int	NOT NULL,
+	`se_name`	varchar(3)	NULL,
+	`se_type`	varchar(10)	NULL,
+	`se_use`	varchar(1)	NULL,
+	`se_ci_num`	int	NOT NULL
+);
+
+ALTER TABLE `cinema` ADD CONSTRAINT `PK_CINEMA` PRIMARY KEY (
+	`ci_num`
+);
+
+ALTER TABLE `movies` ADD CONSTRAINT `PK_MOVIES` PRIMARY KEY (
+	`mo_num`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `PK_RESERVATION` PRIMARY KEY (
+	`re_num`
+);
+
+ALTER TABLE `user` ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+	`us_id`
+);
+
+ALTER TABLE `reservation details` ADD CONSTRAINT `PK_RESERVATION DETAILS` PRIMARY KEY (
+	`re_num`
+);
+
+ALTER TABLE `theater` ADD CONSTRAINT `PK_THEATER` PRIMARY KEY (
+	`th_name`
+);
+
+ALTER TABLE `charactor` ADD CONSTRAINT `PK_CHARACTOR` PRIMARY KEY (
+	`ch_code`
+);
+
+ALTER TABLE `screen` ADD CONSTRAINT `PK_SCREEN` PRIMARY KEY (
+	`sc_num`
+);
+
+ALTER TABLE `seat` ADD CONSTRAINT `PK_SEAT` PRIMARY KEY (
+	`se_num`
+);
+ALTER TABLE	charactor CHANGE ch_num ch_num int auto_increment;
+ALTER TABLE	screen CHANGE sc_num sc_num int auto_increment;
+ALTER TABLE	movies CHANGE mo_num mo_num int auto_increment;
+ALTER TABLE	reservation CHANGE re_num re_num int auto_increment;
+ALTER TABLE	`user` CHANGE us_num us_num int auto_increment;
+ALTER TABLE	`reservation details` CHANGE rd_num rd_num int auto_increment;
+ALTER TABLE	cinema CHANGE ci_num ci_num int auto_increment;
+ALTER TABLE	theater CHANGE th_num th_num int auto_increment;
+
+
+
+
+ALTER TABLE `cinema` ADD CONSTRAINT `FK_theater_TO_cinema_1` FOREIGN KEY (
+	`ci_th_name`
+)
+REFERENCES `theater` (
+	`th_name`
+);
+
+ALTER TABLE `movies` ADD CONSTRAINT `FK_charactor_TO_movies_1` FOREIGN KEY (
+	`ch_code`
+)
+REFERENCES `charactor` (
+	`ch_code`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_user_TO_reservation_1` FOREIGN KEY (
+	`re_us_id`
+)
+REFERENCES `user` (
+	`us_id`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_screen_TO_reservation_1` FOREIGN KEY (
+	`re_sc_num`
+)
+REFERENCES `screen` (
+	`sc_num`
+);
+
+ALTER TABLE `reservation details` ADD CONSTRAINT `FK_reservation_TO_reservation details_1` FOREIGN KEY (
+	`rd_re_num`
+)
+REFERENCES `reservation` (
+	`re_num`
+);
+
+ALTER TABLE `reservation details` ADD CONSTRAINT `FK_user_TO_reservation details_1` FOREIGN KEY (
+	`re_us_id`
+)
+REFERENCES `user` (
+	`us_id`
+);
+
+ALTER TABLE `reservation details` ADD CONSTRAINT `FK_seat_TO_reservation details_1` FOREIGN KEY (
+	`rd_se_num`
+)
+REFERENCES `seat` (
+	`se_num`
+);
+
+ALTER TABLE `screen` ADD CONSTRAINT `FK_cinema_TO_screen_1` FOREIGN KEY (
+	`sc_ci_num`
+)
+REFERENCES `cinema` (
+	`ci_num`
+);
+
+ALTER TABLE `screen` ADD CONSTRAINT `FK_movies_TO_screen_1` FOREIGN KEY (
+	`sc_mo_num`
+)
+REFERENCES `movies` (
+	`mo_num`
+);
+
+ALTER TABLE `seat` ADD CONSTRAINT `FK_cinema_TO_seat_1` FOREIGN KEY (
+	`se_ci_num`
+)
+REFERENCES `cinema` (
+	`ci_num`
+);
+
