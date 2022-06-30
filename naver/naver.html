@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NAVER</title>
+	<style>
+		/* CSS에서는 단하나의 공백도 용량을 차지하기 때문에 공백을 안넣는게 중요하다 */
+		*{padding:0; margin:0;}
+		ul,ol,li{list-style: none;}
+		a{text-decoration: none;}
+		/* .fixed-con{}에 적용된값은 기본으로 고정시키기 위함*/
+		.fixed-con{	width: 1190; margin: 0 auto;}
+		.menu-con, .footer-con{ min-width: 1190px;}
+
+		.search-con{ 	height: 160px; background-color: white; position: relative;}
+			/* 검색창 */
+		.box-search{
+			width: 586px; height: 56px; position: absolute;
+			left: 268px; top: 50%; margin-top: -28px;
+			}
+		.box-search-in{
+			height: 100%; box-sizing : border-box; border: 2px solid #19ce69;
+			/* 검색창 살짝 둥글게 2px만 */
+			border-radius: 2px;  background-color: #fff;
+			}
+		.input-search{
+			border: 0; outline: 0;	width: 474px; height: 50px; box-sizing: border-box;
+			padding: 13px 15px; margin: 1px; font-size: 18px; line-height: 24px;
+			font-weight: bold; 
+		}
+		.btn-submit{
+			width: 56px; height: 56px; box-sizing: border-box; position: absolute;
+			background-color: #19ce69;border-radius: 0 2px 2px 0;
+			border: 0; outline: 0; cursor: pointer; top: 0;right: 0;
+		}
+		.icon-search{
+			display: inline-block; width: 22px; height: 22px;
+			background-position: -420px 0;
+		}
+		/* 네이버 로고 */
+		.link-naver{
+			width: 222px; height: 52px; position: absolute;
+			background-position: 0 -158px; top: 50%; margin-top: -32px;
+			left: 21px;
+		}
+		/* 우측 상단 링크들 */
+		.search-con .box-service{
+			position: absolute; top: 12px; right: 27px;
+				}
+		.search-con .link-set-naver{
+			font-size: 11px; color: #404040;
+		}
+		.search-con .box-service>*{
+			float: left; 
+		}
+		.search-con .link-set-naver::after{
+			width: 26px; height: 26px; display: inline-block; content: '';
+			background-position: -308px -345px; vertical-align:top;
+			margin: -3px 0 0 3px;
+		}
+
+		.menu-con{ height: 52px; background-color: orange;}
+		.content-con{ height: 500px; background-color: skyblue;}
+		.footer-con{ height: 424px; background-color: purple;}
+	
+			/* 공용 */
+		.fixed-con{	padding: 0 30px; box-sizing: border-box;}	
+			/* 배경이미지1 공용 */
+		.link-naver, .icon-search{
+			background-image: url(https://s.pstatic.net/static/www/img/uit/sp_main_4f8ccb.png);
+			background-size: 457px 434px;
+		}
+		/* clearfix 공용 */
+		.search-con .box-service::after{
+			clear: both; display: block; content: '';
+		}
+		.search-con .link-set-naver:hover{
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<!-- fixed-container => 고정된의미로 지음 -->
+	<div class="fixed-con search-con">
+		<form	class="box-search" action="https://search.naver.com/search.naver">
+			<div class="box-search-in">
+		
+				<input type="text" class="input-search" name="query">
+				<!-- input-search end(검색창에서 입력칸) -->
+			</div>
+			<!-- box-search-in end(검색창) -->
+			<div class="box-auto"></div>
+			<!-- box-auto end(자동완성) -->
+			<button type="submit" class="btn-submit">
+				<i class="icon-search"></i>
+				<!-- icon-search end(검색 버튼 아이콘) -->
+			</button>
+			<!-- box-submit end(검색버튼) -->
+		</form> 
+		<!-- box-search end(네이버 검색창) -->
+			<a href="http://naver.com" class="link-naver"></a>
+			<!-- link-naver end(네이버 로고) -->
+			<d class="box-service"></d>
+			<a href="#" class="link-set-naver">네이버를 시작페이지로</a>
+			<i class="bar"></i>
+			<a href="#" class="link-jr-naver"></a>
+			<a href="#" class="link-happybin"></a>
+	</div>
+	<!-- search-con end -->
+	<div class="menu-con"></div>
+	<!-- menu-con end -->
+	<div class="fixed-con content-con"></div>
+	<!-- content-con end -->
+	<footer class="footer-con"></footer>
+	<!-- footer-con-end -->
+</body>
+</html>
