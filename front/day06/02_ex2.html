@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>분할예제2</title>
+	<style>
+		body{	margin: 0;}
+		.black-box{
+			height: 100vh; background: gray;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+		.red-box1{
+			height: 100px; width: calc((100% - 10px * 2) / 3);
+				background: green; float: left;	
+		}
+		.red-box2{
+			margin: 0 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="black-box">
+		<div class="red-box1">1</div>
+		<div class="red-box2">2</div>
+		<div class="red-box3">3</div>
+	</div>
+</body>
+</html>
