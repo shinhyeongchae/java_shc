@@ -47,7 +47,7 @@ ex)	/* 모든 p태그 요소들에게 글자 색을 빨강색으로 지정 */
 	}
 	-------------------------------------------------------------
 
-     - 클래스명
+	- 클래스명
 	- 클래스와 일치하는 모든 요소에 적용
 	- 클래스명
 
@@ -155,9 +155,19 @@ ex)	- 선택자선택자{
 	  - 선택자 2개가 모두 태그명인 경우
 	  - 선택자 2개가 모두 아이디인 경우
 	    - 요소 하나엔 아이디를 최대 1개 지정가능
-	  
-	  - divp{
-	    }
+	- 형제 관계
+	= 잘 이용하면 첫번째 요소를 통해..~
+		- ~
+			- 선택자1~ 선택자2 {
+					속성 : 값;
+				}
+		=> 선택자1을 기준으로 다음 형제 요소중에서 선택자2와 일치하는 요소들
+		 
+		- +
+			- 선택자 1 + 선택자 2{
+						속성 : 값 ;
+						}
+		=> 선택자 1을 기준으로 다음 형제 요소중에서 선택자2와 일치하는 첫번째 요소
 
 ### 스타일 상속
  - 부모 요소에 있는 스타일을 자손 요소들이 상속을 받음
@@ -248,12 +258,12 @@ ex)	 - font : font-style, font-weight, font-size, font-family
 ----------------------------------------------------------------------------------------
  - 박스 모델 관련 속성
 	 - box-sizing
-		ex) bod-sizing : border-box|content-box;
+		ex) bod-sizing : border-box | content-box;
  	 - 박스 가로, 세로 크기의 기준을 설정하는 속성
 	 - 기본값은 content-box
 	 - content-box는 가로, 세로를 컨텐츠의 가로, 세로로 계산
 	 - border-box는 가로, 세로를 컨텐츠 + 패딩 + 테두리의 가로, 세로로 계산
- 	 - width, height
+ 	 - width, height 
 	 	- 가로, 세로를 정하는 속성
 	        - width : 크기;
 		- hegith : 크기;
@@ -512,7 +522,18 @@ padding-right : 크기2;
 		- list-style	
 			- list-style-type, list-style-image, list-style-position
 				을 한번에 지정하는 속성
-		
+	- opacity
+		- 투명도를 설정하는 속성
+		- 0.0 ~ 1.0이상의 실수값을 가짐
+		- 0.1 원본(완전 불투명))
+		- 1.0 투명 
+		- 0.0 투명
+		- 부모 요소에 설정된 opacity에 따라 자식 요소들은 opacity를 수정해도 
+				부모요소보다 진해질 수 없다.
+					-	opacity를 이용하여 부모 요소에 배경을 투명으로 하고, 자식 요소의 글자만
+						 진하게 할 수 없다
+					- 이러한 경우 opacity를 이용해서 부모요소배경을 투명으로하지말고, rgba()를
+						이용하여 부모 요소 배경을 투명하게 하면 자식 요소의  opacity를 통해 진하게 할 수 있다		
 
 
 ### 표준단위
@@ -529,32 +550,116 @@ padding-right : 크기2;
  - vh : view height => 브라우저 화면의 높이를 100으로 나눈 값 100vh => 브라우저 화면의 높이
  - vw : view width => 브라우저 화면의 너비를 100으로 나눈 값 100vw => 브라우저 화면의 너비
 
+- border-collapse
+	- table  태그에서 테두리가 안 테두리와 밖 테두리로 나뉠때 하나로 합치는 속성
+
+- 애니메이션
+	- @keyframes를 이용하여 시간별로 동작할 속성을 설정하여 애니메이션을 등록
+		-@keyframes 애니메이션명{
+				시간비율 {
+						속성:값;
+				}
+				시간비율{
+						속성:값
+				}
+		}
+		@keyframes 애니메이션명{
+			0%{ /*from으로 대체 할 수 있음*/
+					속성:값;
+			}
+			100%{	/* to로 대체할 수 있음*/
+					속성:값;
+			}
+		}
+
+- animation 관련 속성을 이용하여 애니메이션을 적용
+		- animation-name	
+			- 실행할 애니메이션을 선택
+		- animation-duration
+			-	애니메이션 실행시간
+		- animation-iteration-count
+			- 반복 횟수
+			- 무한한 infinite
+		- animation-timing functiuons
+			- 애니메이션 실행 속도와 관련된 함수
+			- 같은 시간에서 비율별로 실행 속도를 다르게 설정
+			- 그래프로 표현
+
+- transition
+	- 지정된 속성이 변경된 경우 서서히 변경되도록 하는 속성
+		
+		ex) transition : 속성명 시간;
+
+- transform
+		- 함수를 이용하여 요소를 다양하게 변경
+		- translate
+			- 위치이동
+			- translate(x,y)
+			- translateX(n)
+			- translateY(n)
+		- scale
+			- 확대 
+			- scale(w,h)
+			- scaleX(n)
+			- scaleY(n)
+		- roate
+			- 회전
+			- rotate(angle)
+		- skew
+			- 기울임
+			- skew(x-angle,y-angle)
+			- skewX(angle)
+			- skewY(angle)
+
+		ex) transform : 함수(); 
+
+
+- max-width, min-width / max-height, min-height
+	- 최대 너비, 최소너비
+	- width랑은 다름
+	- 네이버는 min-width를 이용하여 브라우저 화면이 작아져도 크기가 유지된다(스크롤이생김)
+		,컺비면 커진 화면에 맞춰 가운데로 배치된다
+
 
 ### clac() 함수
-
 - 단위가 다른 값들을 계산할 때 사용
 - 연산자 앞 뒤로 무조건 공백을 넣어야함
 	- 연산자 앞 뒤로 공백을 넣지 않으면 계산을 못함
 	- 예 : clac(50% - 200px)
 
 ### url 함수
-
 - url 경로나 파일 경로를 가져오는 함수
 - " 또는 "" 를 써도 되고 생략해도 됨
 
 
 ### inline-block 요소
-
 - inline-block 요소가 나열되어 있을 때 안에 있는 컨텐츠가 다른 경우 어긋날 수 있다.
 	- 이르르 해결하기 위해 float을 이용
 - inline-block 요소가 나열되어 있을 때 엔터에 의한 공백이 생김
 
 ### ::before 와 ::after	
 - 요소 앞(::berfore)과 뒤(::after)에 컨텐츠를 추가함
-- 
+- content 속성이 반드시 들어가야함
+- display를 이용하여 추가된 속성의 display를 설정할 수 있음
+- width, height를 이용하여  너비, 높이를 display에 따라 지정할 수 있음
 
-	
-
+### 아이콘 사용방법
+- fontawesome 사이트에서 script 연결 코드를 가져와서 연결
+- 사용하고 싶은 아이콘을 가져와서 적용(링크)
+=>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/0fe03ad064.js" crossorigin="anonymous"></script>
+	<title>icon 예제</title>
+</head>
+<body>
+		<i class="fa-solid fa-bars"></i>
+</body>
+</html>
 
 
 
