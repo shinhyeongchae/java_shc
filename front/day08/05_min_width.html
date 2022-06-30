@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>min-width 예제</title>
+	<style>
+		*{	padding: 0; margin: 0;}
+		.box{
+			height: 300px; background: red;
+			min-width: 1000px;
+			margin: 0 auto;
+			width: 1000px;
+		}
+		/*
+	- max-width, min-width / max-height, min-height
+		- 최대 너비, 최소너비
+		- width랑은 다름
+		- 네이버는 min-width를 이용하여 브라우저 화면이 작아져도 크기가 유지된다
+																											(스크롤이생김)
+		,커지면 커진 화면에 맞춰 가운데로 배치된다
+*/
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+</body>
+</html>
