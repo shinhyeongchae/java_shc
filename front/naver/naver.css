@@ -333,4 +333,4 @@ a{ text-decoration: none; }
 .search-con .box-service::after,
 .content-con .box-right1 .box-sub::after{
 	clear: both; display: block; content: '';
-}
+}s
