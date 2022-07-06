@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>button</title>
+    <style>
+        *{padding: 0; margin: 0;}
+        
+        /* 예제1 */
+        .button{
+            width: 200px;
+            height: 50px;
+            border: 2px solid green;
+            color:  green;
+            font-size: 13px;
+            box-sizing: content-box;
+            background-color: whitesmoke;
+            padding: 0;
+            cursor: pointer;
+        }
+        /* 예제2 */
+        .button2{
+            width: 200px;
+            height: 50px;
+            border: 2px solid green;
+            display: inline-block;
+            font-size: 13px;
+            background-color: whitesmoke;
+            line-height: 50px;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        button태그
+         - 글자가 상하, 좌우 가운데 정렬
+         - box-sizing이 border-box
+         - inline-block
+         - 기본 padding이 존재
+        a 태그
+         - inline
+         - box-sizing이 content-box
+         - text-decoration이 underline
+         - color이 -webkit-link
+     -->
+    <!-- 예제1 -->
+    <button class="button">버튼</button>
+    <!-- 예제2 -->
+    <a href="#" class="button2">버튼2</a>
+</body>
+</html>
