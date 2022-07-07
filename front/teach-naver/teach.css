@@ -450,6 +450,76 @@ a{ text-decoration: none; }
 	background-position: -224px -158px;
 }
 
+/* 왼쪽 4번째 박스(주제글)*/
+.content-con .box-left4{
+	height: 2555px;
+	width: 750px;
+	border: #000;
+	display: block;
+}
+.content-con .box-left4 .themecast{
+	padding: 35px 0 27px;
+    letter-spacing: -.25px;
+}
+.content-con .box-left4 .group-title{
+	overflow: hidden;
+    padding-bottom: 17px;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .title-area{
+	float: left;
+}
+.strong{
+	font-weight: bold;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .title-area .title{
+	font-size: 14px;
+    color: #000;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .title-area .dsc{
+	font-size: 12px;
+	margin-left: 2px;
+    color: grey;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area{
+	float: right;	
+	font-size: 12px;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area{
+	color: grey;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .new{
+	color: #000;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .btn-set{
+	position: relative;
+    margin-left: 14px;
+    color: #505050;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .btn-set::before{
+	display: inline-block;
+    width: 11px;
+    height: 11px;
+    background-position: -444px -194px;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    content: '';
+    margin-right: 4px;
+    vertical-align: -1px;
+    opacity: .7;
+}
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .btn-set::after{
+	position: absolute;
+    top: 2px;
+    left: -8px;
+    content: '';
+    width: 1px;
+    height: 12px;
+    background-color: gray;
+}
+.content-con .box-left4 .themecast .theme-head .group-category{
+	height: ; width: ;
+}
+
 
 
 
@@ -664,6 +734,8 @@ a{ text-decoration: none; }
 .content-con .box-right2 .box-stock .rate::before,
 .content-con .box-right2 .box-nav .btn-nav::before,
 .content-con .box-right2 .exchange .name::before,
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .btn-set::before,
+.content-con .box-left4 .themecast .theme-head .group-title .info-area .btn-set::after,
 .bg-img,
 .bg-img::after,
 .bg-img::before{
