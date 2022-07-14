@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <script src="../js/jquery.js"></script>
+    <style>
+  		.view{
+			width: 300px; height: 50px; border: 1px solid brown;
+			margin-left: 300px; overflow: hidden; 
+		}
+		.container{
+			width: 600px; height: 100%; background-color: orange;
+		}
+		.box{
+			float: left; height: 100%; width: 300px;
+			background-color: yellow;
+		}
+		.box+.box{
+			background-color: green;
+		}
+    </style>
+</head>
+<body>
+     <button class="before">이전</button>
+     <button class="after">다음</button>
+     <div class="view">
+		<div class="container">
+			<div class="box">1</div>
+			<div class="box">2</div>
+		</div>
+		<!-- container end(주황색 박스) -->
+	</div>
+	<!-- view end(빨간 박스) -->
+     <script>
+        $(function(){
+            $('.before').click(function(){
+                $('.container').animate({'margin-left' : '0'}, 500);
+            })
+            $('.after').click(function(){
+                $('.container').animate({'margin-left' : '-300px'}, 500);
+            })
+        })
+     </script>
+</body>
+</html>
