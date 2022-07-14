@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>load</title>
+    <script>
+        /* - 이예제는 body 태그가 아닌 head 태그에 script태그를 넣으면
+            원래는 에러가 뜨지만 window.onload를 통해서 에러가 안생기고
+            정상 실행할수 있도로고 해주는 방법이다.
+            
+            - window.onload는 여러개 있을 수 있으나, 마지막 onload만 적용됨
+            */
+        var btn;
+        window.onload = ()=>{
+            var link = document.getElementsByTagName('a')[0];
+            link.innerText = '링크'  
+        }
+        window.onload = ()=>{
+            btn = document.getElementsByTagName('button')[0];
+            btn.onclick = ()=> console.log('클릭');
+        }
+    </script>
+</head>
+<body>
+    <button>버튼</button>
+    <a href="">링크</a>
+</body>
+</html>
