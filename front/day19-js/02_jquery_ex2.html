@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event2</title>
+    <script src="../js/jquery.js"></script>
+</head>
+<body>
+    <button class="btn btn1">-</button>
+    <button class="btn btn2">+</button>
+    <script>
+        var min = 1,max = 18;
+        var num = min;
+        console.log(num);
+        $(function(){
+            $('.btn1').click(function(){
+                num--;
+                if(num < min)
+                    num = max;
+                console.log(num);
+            })
+            /*
+            $('.btn2').click(function(){
+                // num++; // ++num; num+=1; num = num+1;
+                //num = num > max ? min : num;
+                num = ++num > max ? min : num;
+                console.log(num);
+            })
+            */
+            $('.btn1').click(()=> console.log(num = ++num > max ? min:num))
+        })
+    </script>
+</body>
+</html>

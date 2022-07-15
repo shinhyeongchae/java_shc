@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>box event</title>
+    <script src="../js/jquery.js"></script>
+    <style>
+  		.view{
+			width: 300px; height: 50px; border: 3px solid black;
+            overflow : hidden;
+            margin: 100px;
+		}
+		.container{
+			width: 600px; height: 100%; ;
+		}
+        .box{
+            float: left; width: 100px; height: 50px; background-color: green;
+            text-align: center;
+        }
+        .box:nth-child(2n){background-color: red;}
+    </style>
+</head>
+<body>
+     <button class="before">이전</button>
+     <button class="after">다음</button>
+     <div class="view">
+		<div class="container">
+			<div class="box box1">1</div>
+			<div class="box box2">2</div>
+            <div class="box box3">3</div>
+			<div class="box box4">4</div>
+            <div class="box box5">5</div>
+			<div class="box box6">6</div>
+		</div>
+	</div>
+     <script>
+        var min = 1, max = 4;
+        var page = 1;
+        $(function(){
+            $('.before').click(function(){
+                if(page != min){
+                $('.container').animate({'margin-left' : '+=100px'}, 500);
+                    page--;
+                }
+            })
+            $('.after').click(function(){
+                if(page != max){
+                $('.container').animate({'margin-left' : '-=100px'}, 500);
+                    page++;
+                }
+            })
+        })
+     </script>
+</body>
+</html>
