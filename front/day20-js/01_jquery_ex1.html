@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택 예제</title>
+    <script src="../js/jquery.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <button class="btn">버튼1</button>
+    <a href="#" class="btn-link">버튼2</a>
+    <script>
+        // 위에 btn이라는 요소를 선택하는 것.
+        $(function(){
+            var selector = 'button';
+            $('button').click(function(){
+                console.log(123)
+            })
+            $(button).on('click', function(){
+                console.log(123)
+            })
+            $(documnet).on('click', '.btn' , function(){
+                console.log(123)
+            })
+        })
+    </script>
+</body>
+</html>
