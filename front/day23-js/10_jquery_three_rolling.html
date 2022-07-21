@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rolling</title>
+    <script src="../js/jquery.js"></script>
+    <style>
+        *{padding: 0;margin: 0;}
+        ul{list-style: none;}
+        .view1{
+            width: 300px;height: 50px;border: 2px solid black;
+            margin-top: 100px;margin-left: 100px; overflow: hidden; color: white;
+            font-weight: bold; font-size: 30px;
+        }
+        .list1::after{clear: both; content: ''; display: block;}
+        .item1{
+            float: left; width: 300px; line-height: 50px;
+            height: 50px;background-color: blue;
+        }
+        .item1:nth-child(2n){background: skyblue;}
+        /* 첫번째 박스 end */
+        .view2{
+            width: 300px;height: 50px;border: 2px solid black;
+            margin-top: 100px;margin-left: 100px; overflow: hidden; color: white;
+            font-weight: bold; font-size: 30px;
+        }
+        .list2{width: 1500px;}
+        .list2::after{clear: both; content: ''; display: block;}
+        .item2{
+            float: left; width: 300px; line-height: 50px;
+            height: 50px;background-color: blue;
+        }
+        .item2:nth-child(2n){background: skyblue;}
+        /* 두번째 박스 end */
+        .view3{
+            width: 300px;height: 50px;border: 2px solid black;
+            margin-top: 100px;margin-left: 100px; overflow: hidden; color: white;
+            font-weight: bold; font-size: 30px;
+        }
+        .list3::after{clear: both; content: ''; display: block;}
+        .item3{
+            float: left; width: 300px; line-height: 50px;
+            height: 50px;background-color: blue;
+        }
+        .item3:nth-child(2n){background: skyblue;}
+        /* 세번째 박스 end */
+    </style>
+</head>
+<body>
+    <div class="view1">
+        <ul class="list1">
+            <li class="item1">1</li>
+            <li class="item1">2</li>
+            <li class="item1">3</li>
+            <li class="item1">4</li>
+            <li class="item1">5</li>
+        </ul>
+    </div>
+    <!-- 첫번째 박스 -->
+    <div class="view2">
+        <ul class="list2">
+            <li class="item2">1</li>
+            <li class="item2">2</li>
+            <li class="item2">3</li>
+            <li class="item2">4</li>
+        </ul>
+    </div>
+    <!-- 두번째 박스 -->
+    <div class="view3">
+        <ul class="list3">
+            <li class="item3">1</li>
+            <li class="item3">2</li>
+            <li class="item3">3</li>
+            <li class="item3">4</li>
+        </ul>
+    </div>
+    <!-- 세번째 박스 -->
+    <script>
+       $(function(){
+            setInterval(() => {
+                let height = -$('.item1').first().height() + 'px';
+                    if(!$('.item1').first().is(':animated') && !$('.view1').is(':hover')){
+                        $('.item1').first().animate(
+                            {
+                                'margin-top': height
+                            },
+                            500,
+                            function(){
+                                $(this).detach()
+                                    .removeAttr('style')
+                                    .appendTo('.list1');
+                            }
+                        )
+                    }
+                }, 1500);
+            })
+            // 1
+        $(function(){
+        setInterval(() => {
+            let width = -$('.item2').first().width() + 'px';
+                if(!$('.item2').first().is(':animated') && !$('.view2').is(':hover')){
+                    $('.item2').first().animate(
+                        // 애니메이션을 적용할 속성과 값
+                        {
+                            'margin-left': width
+                        },
+                        // 애니메이션 동작시간
+                        1200,
+                        // 애니메이션 끝나고 나서 할 작업
+                        function(){
+                            $(this).detach()
+                                .removeAttr('style')
+                                .appendTo('.list2');
+                        }
+                    )
+                }
+            }, 1500);
+        })
+        // 2
+        $(function(){
+            setInterval(() => {
+                let height = -$('.item3').first().height() + 'px';
+                    if($('.item3').first().is(':animated') || $('.view3').is(':hover')){
+                        return;
+                    }
+                    $('.item3')
+                        .last()
+                        .detach()
+                        .css('margin-top',height)
+                        .prependTo('.list3')
+                        .animate({
+                            'margin-top' : '0px'
+                        },
+                    1200
+                    );
+            },1500);
+        })
+        // 3
+    </script>
+</body>
+</html>
