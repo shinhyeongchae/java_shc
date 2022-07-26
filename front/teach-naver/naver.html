@@ -84,6 +84,7 @@
 					<li class="item-menu"><a href="#" class="link-menu">웹툰</a></li>
 				</ul>
 				<!-- 검은색 메뉴 end -->
+				<ul class="list-menu select-menu"></ul>
 				<ul class="list-menu empty-box">
 					<li class="item-menu box first"></li>
 					<li class="item-menu box"></li>
@@ -926,6 +927,18 @@
 						<a href="#" class="btn-next"></a>
 					</div>
 				</div>
+				<div class="box-theme-footer">
+					<div class="box">1</div>
+					<div class="box">2</div>
+					<div class="box">3</div>
+					<div class="box">4</div>
+					<div class="box">5</div>
+					<div class="box">6</div>
+					<div class="box">7</div>
+					<div class="box">8</div>
+					<div class="box">9</div>
+					<div class="box">10</div>
+				</div>
 			</div>
 			<!-- box-left4 end(주제별 카테고리) -->
 		</div>
@@ -1208,7 +1221,15 @@
 		let parentSelector2 = '.box-right2 .box-timesquare .list-timesquare';
 		let childSelector2 = '.box-right2 .box-timesquare .item-timesquare';
 		let ancestorSelector2 = '.box-right2 .box-timesquare';
+		let menu = {
+			'myfeed' : '구독', 'weather' : '날씨', 'mycar' : 'MY CAR', 
+			'ngame'  : '네이버 게임', 'booking' : '예약', 'premium' : '프리미엄콘텐츠',
+			'plus' : '네이버플러스', 'news' : '뉴스', 'datalab' : '데이터랩', 
+			'book' : '도서', 'memo' : '메모'
+		}
 
+		let selectMenu = [];
+		let saveMenu = [];
 		$(function(){
 			//왼쪽 테마 박스 이벤트들
 			let boxThemeBody = '.box-left4 .box-theme-body ';
@@ -1221,6 +1242,7 @@
 					$(boxThemeBody+'.btn-prev').hide()
 				else
 					$(boxThemeBody+'.btn-prev').show()
+				$('.box-left4 .box-theme-footer .box').hide().eq($(this).index()).show()
 			})
 			//이전버튼 클릭 이벤트 등록
 			$(boxThemeBody+'.btn-prev').click(function(e){
@@ -1261,11 +1283,32 @@
 			})
 
 			//메뉴 이벤트들
+			//더보기 클릭
 			$('.menu-con .box-menu .btn-more').click(function(e){
 				e.preventDefault();
 				$(this).toggleClass('fold');
+				//우측 상단 박스
 				$('.menu-con .box-btn').toggle();
+				$('.menu-con .box-btn .box-btn1').show();//메뉴설정/전체보기
+				$('.menu-con .box-btn .box-btn2').hide();//초기화/저장
+				//메뉴가 보이는 큰박스
 				$('.menu-con .box-service').toggle();
+
+				drawBlackMenu(saveMenu, menu);
+				//접기버튼 클릭
+				if(!$(this).hasClass('fold')){
+					//박스를 제거
+					$('.menu-con .empty-box').hide();
+					
+					//링크박스/체크박스 보여줌
+					$('.menu-con .box-service-container').removeClass('display-none');
+					//체크박스 안보여줌
+					$('.menu-con .box-service-container.check').addClass('display-none');
+					//체크박스 체크를 해제해줌
+					$('.menu-con .data-service').removeClass('checked')
+					$('.menu-con .input-service').prop('checked', false);
+					selectMenu = [];
+				}
 			})
 			//더보기 > 메뉴 설정 버튼 클릭
 			$('.menu-con .box-btn .btn-set').click(function(e){
@@ -1278,12 +1321,46 @@
 				$('.menu-con .list-menu.empty-box').show();
 				$('.menu-con .box-service-container').addClass('display-none');
 				$('.menu-con .box-service-container.check').removeClass('display-none');
+				$('.menu-con .init-menu, .menu-con .select-menu').hide()
+
+				drawCheckbox(saveMenu);
+				selectMenu = saveMenu.slice(0);
+				drawBox(selectMenu, menu);
 			})
-			$('.input-service').click(function(){
+			//더보기-메뉴설정- 체크박스 값이 바뀔때
+			$('.menu-con .input-service').change(function(){
 				$(this).parents('.data-service').toggleClass('checked');
+				let val = $(this).val();
+				if($(this).is(':checked')){
+					if(selectMenu.length < 4){
+						selectMenu.push(val);
+					}else{
+						$(this).prop('checked', false);
+						$(this).parents('.data-service').toggleClass('checked');
+						alert('최대 4개까지 설정할 수 있습니다.')
+					}
+				}else{
+					let index = selectMenu.indexOf(val);
+					selectMenu.splice(index,1);
+				}
+				drawBox(selectMenu, menu)
 			})
-
-
+			
+			//더보기-메뉴설정-저장 버튼 클릭
+			$('.menu-con .btn-save').click(function(e){
+				e.preventDefault();
+				//
+				saveMenu = selectMenu.splice(0);
+				//더보기 버튼 클릭
+				$('.menu-con .box-menu .btn-more').click()
+			})
+			//더보기-메뉴설정-초기화 버튼 클릭
+			$('.menu-con .btn-init').click(function(e){
+				e.preventDefault();
+				saveMenu = [];
+				$('.menu-con .box-menu .btn-more').click()
+				alert('초기설정으로 돌아갑니다.')
+			})
 
 
 			//페이지 로딩 완료 후
@@ -1307,6 +1384,68 @@
 
 		})
 		
+		function drawBox(arr, menu){
+			//선택된 메뉴를 추가하는 작업 
+			// => 메뉴가 들어갈 곳에는 박스 테두리를 제거, 아닌 부분에는 테두리 추가
+			//녹색 테두리를 제거 
+			// => 왜냐하면 녹색 테두리위치가 이동하기 때문에 일단 제거하고 나중에 추가
+			$('.empty-box .item-menu.first').removeClass('first');
+			//어디에 메뉴가 들어가야 할지 아직 모르기 때문에 모든 항목에 테두리를 추가
+			$('.empty-box .item-menu').addClass('box');
+			//각 항목에 글자를 넣을지(테두리를 제거) 말지를 작업
+			$('.empty-box .item-menu').each(function(index){
+				//선택된 항목이 메뉴를 추가해야하는 위치이면
+				if(index < arr.length){
+					//글자가 들어가는 박스는 테두리를 제거
+					$(this).removeClass('box');
+					//메뉴를 항목 글자로 추가
+					$(this).text(menu[arr[index]]);
+				}
+				//항목에 글자를 넣지 말아야 하면
+				else{
+					//빈 글자로 설정(이 전에 글자가 있었을지도 모르기 때문에)
+					$(this).text('');
+				}
+			})
+			//박스들 중 첫번째 박스에 녹색 테두리 추가
+			$('.empty-box .item-menu.box').first().addClass('first')
+		}
+		function drawBlackMenu(saveMenu, menu){
+			//초기 검은 메뉴를 보여줘야 하는 상황
+			if(saveMenu.length == 0){
+				//초기 메뉴 보여주고
+				$('.menu-con .init-menu').show()
+				//선택된 메뉴 감춤
+				$('.menu-con .select-menu').hide()
+			}
+			//사용자가 선택한 메뉴가 있는 상황
+			else{
+				//초기 메뉴 감추고
+				$('.menu-con .init-menu').hide()
+				//선택된 메뉴 감춤
+				$('.menu-con .select-menu').show()
+			}
+			$('.menu-con .select-menu').html('');
+
+			let linkElment = '';
+			//선택된 메뉴들을 요소로 만들어서 추가하기 위해 반복문을 이용
+			saveMenu.forEach(value => {
+				linkElment 	
+					+= '<li class="item-menu"><a href="#" class="link-menu">'+menu[value]+'</a></li>'
+			});
+			$('.menu-con .select-menu').html(linkElment);
+		}
+		function drawCheckbox(saveMenu){
+			$('.menu-con .input-service').each(function(){
+				let val = $(this).val();
+				let index = saveMenu.indexOf(val);
+
+				if(index >= 0){
+					$(this).prop('checked', true); 
+					$(this).parents('.data-service').addClass('checked')
+				}
+			})
+		}
 	</script>
 </body>
 </html>
