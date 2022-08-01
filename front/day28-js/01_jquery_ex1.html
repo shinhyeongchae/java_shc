@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hover</title>
+    <style>
+        .box1{
+            height: 200px; width: 300px; background-color: skyblue;
+            cursor: pointer;
+        }
+        .box2{
+            height: 200px; width: 300px; background-color: green;
+            display: none;
+        }
+        .box:hover{
+            background-color: red;
+        }
+        .bg-yellow{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+   <script>
+        $('.box2').hover(function(){
+            $(this).css('.background', 'yellow');
+        },function(){
+            $(this).css('background','white');
+        })
+        $('.box').hover(function(){
+            $(this).toggleClass('bg-yellow')
+        })
+   </script>
+</body>
+</html>

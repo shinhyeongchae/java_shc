@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="../js/jquery.js"></script>
+    <style>
+        .text{ border: 3px solid black; width: 200px; height: 50px;}
+        .btn{
+            height: 57px;
+            border: 3px solid black; font-weight: bold; cursor: pointer;
+        }
+        .btn:hover{background-color: darkgray;}
+    </style>
+</head>
+<body>
+    <input type="text" class="text">
+    <button class="btn">추가</button>
+    <script>
+        $(function(){
+            $('.text').val(function(){
+                console(1)
+            })
+        })
+    </script>
+</body>
+</html>
