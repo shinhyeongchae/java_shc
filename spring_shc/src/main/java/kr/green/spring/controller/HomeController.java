@@ -53,14 +53,12 @@ public class HomeController {
 	public ModelAndView homePost(ModelAndView mv, String hobby, Integer time) {
 	    mv.setViewName("redirect:/");
 	    System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
-	    MemberVO member = new MemberVO();
-	    member.setId(hobby);
 	    return mv;
 	}
 	@RequestMapping(value="/hobby/{hobby1}/{time1}")
 	public ModelAndView hobby(ModelAndView mv,
-			@PathVariable("hobby1") String hobby, 
-			@PathVariable("time1") Integer time){
+										@PathVariable("hobby1") String hobby, 
+										@PathVariable("time1") Integer time){
 	    mv.setViewName("redirect:/");
       System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
 	    return mv;
@@ -74,8 +72,10 @@ public class HomeController {
 	public ModelAndView loginGet(ModelAndView mv, MemberVO member) {
 	    mv.setViewName("redirect:/login");
 	    System.out.println(member);
+	    // 아이디가 주어지면 이메일을 가져오는 작업
 	    String email = memberService.getEmail(member.getMe_id());
 	    System.out.println("이메일 : "+email);
+	    // 아이디가 주어지면 회원 정보를 가져오는 작업
 	    return mv;
 	}
 
