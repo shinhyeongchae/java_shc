@@ -1,18 +1,25 @@
-package kr.green.spring;
+package kr.green.spring.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.spring.service.MemberService;
+import kr.green.spring.vo.MemberVO;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	/* 
-	 * 접근 제한자	: public - 고정
+	
+	@Autowired
+	MemberService memberService;
+	
+	/* 접근 제한자	: public - 고정
 	 * 리턴 타입		: ajax(나중에 배움)를 이용한 경우는 제외하고는 기본적으로 ModleAndView
 	 * 메소드명		: url 경로와 처리 방식(GET/POST)에서 따오는게 편함
 	 * 		=>예로, url /login이고 get방식이면 loginGet으로 짓는게 편함 
@@ -46,6 +53,8 @@ public class HomeController {
 	public ModelAndView homePost(ModelAndView mv, String hobby, Integer time) {
 	    mv.setViewName("redirect:/");
 	    System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
+	    MemberVO member = new MemberVO();
+	    member.setId(hobby);
 	    return mv;
 	}
 	@RequestMapping(value="/hobby/{hobby1}/{time1}")
@@ -62,10 +71,11 @@ public class HomeController {
 	    return mv;
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView loginGet(ModelAndView mv, String id, String pw) {
+	public ModelAndView loginGet(ModelAndView mv, MemberVO member) {
 	    mv.setViewName("redirect:/login");
-	    System.out.println("id :" +id);
-	    System.out.println("pw :" +pw);
+	    System.out.println(member);
+	    String email = memberService.getEmail(member.getMe_id());
+	    System.out.println("이메일 : "+email);
 	    return mv;
 	}
 
