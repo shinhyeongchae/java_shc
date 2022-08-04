@@ -1,5 +1,7 @@
 package kr.green.spring.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,6 @@ public class HomeController {
 	
 	@Autowired
 	MemberService memberService;
-	
 	/* 접근 제한자	: public - 고정
 	 * 리턴 타입		: ajax(나중에 배움)를 이용한 경우는 제외하고는 기본적으로 ModleAndView
 	 * 메소드명		: url 경로와 처리 방식(GET/POST)에서 따오는게 편함
@@ -42,25 +43,8 @@ public class HomeController {
 	 * 이 때, hobby와 time의 타입이 null을 처리할 수 없는 타입이면 에러가 발생
 	 * */
 	@RequestMapping(value="/" , method=RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv, String hobby, Integer time) {
+	public ModelAndView home(ModelAndView mv) {
 	    mv.setViewName("/main/home");
-	    mv.addObject("setHeader", "홍길동");
-	    mv.addObject("age",20);
-	    System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
-	    return mv;
-	}
-	@RequestMapping(value="/" , method=RequestMethod.POST)
-	public ModelAndView homePost(ModelAndView mv, String hobby, Integer time) {
-	    mv.setViewName("redirect:/");
-	    System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
-	    return mv;
-	}
-	@RequestMapping(value="/hobby/{hobby1}/{time1}")
-	public ModelAndView hobby(ModelAndView mv,
-										@PathVariable("hobby1") String hobby, 
-										@PathVariable("time1") Integer time){
-	    mv.setViewName("redirect:/");
-      System.out.println("취미는"+ hobby+"이고,"+time+"시간씩 합니다.");
 	    return mv;
 	}
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -69,22 +53,32 @@ public class HomeController {
 	    return mv;
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView loginGet(ModelAndView mv, MemberVO member) {
-	    mv.setViewName("redirect:/login");
-	    System.out.println(member);
-	    // 아이디가 주어지면 이메일을 가져오는 작업
-	    String email = memberService.getEmail(member.getMe_id());
-	    System.out.println("이메일 : "+email);
-	    // 아이디가 주어지면 회원 정보를 가져오는 작업
-	    MemberVO dbMember = memberService.getMember(member.getMe_id());
-	    System.out.println("회원정보 : "+dbMember);
-	    // 아이디와 비번이 주어지면 아이디와 비번이 일치하는 회원 정보를 가져오는 작업
-	    MemberVO dbMember2 = memberService.getMember(member);
-	    System.out.println(dbMember2);
-	    MemberVO dbMember3 = memberService.getMember2(member);
-	    System.out.println(dbMember3);
-	    return mv;
-	    
+	public ModelAndView loginPOST(ModelAndView mv, MemberVO member) {
+			MemberVO dbMember = memberService.login(member);
+			System.out.println("로그인중 : " + dbMember);
+			mv.addObject("user", dbMember);
+	    mv.setViewName("redirect:/");
+	    return mv;   
 	}
-
+	@RequestMapping(value="/signup", method=RequestMethod.GET)
+	public ModelAndView signupGet(ModelAndView mv) {
+		mv.setViewName("/main/signup");
+		return mv;
+	}
+	@RequestMapping(value="/signup", method=RequestMethod.POST)
+	public ModelAndView signupPost(ModelAndView mv, MemberVO member) {
+		if(memberService.signup(member)) {
+			mv.setViewName("redirect:/");
+		}else {
+			mv.setViewName("redirect:/signup");
+		}
+		mv.setViewName("/main/signup");
+		return mv;
+	}
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logoutGet(ModelAndView mv, HttpSession session) {
+		session.removeAttribute("user");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 }
