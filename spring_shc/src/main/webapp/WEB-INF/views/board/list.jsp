@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,36 +10,34 @@
 </head>
 <body>
 	<div class="container">
-	  <h2>Hover Rows</h2>
-	  <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>            
+	  <h2>게시글 리스트</h2>      
 	  <table class="table table-hover">
 	    <thead>
 	      <tr>
-	        <th>Firstname</th>
-	        <th>Lastname</th>
-	        <th>Email</th>
+	        <th>번호</th>
+	        <th>제목</th>
+	        <th>작성자</th>
+	        <th>작성일</th>
+	        <th>조회수</th>
+	        <th>추천</th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <tr>
-	        <td>John</td>
-	        <td>Doe</td>
-	        <td>john@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>Mary</td>
-	        <td>Moe</td>
-	        <td>mary@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-	      </tr>
+	    	<c:forEach items="${list}" var="board">
+		      <tr>
+		        <td>${board.bd_num}</td>
+		        <td>
+		       		<a href="<%=request.getContextPath()%>/board/select/${board.bd_num}">${board.bd_title}</a> 
+		        </td>
+		        <td>${board.bd_me_id}</td>
+		        <td>${board.bd_reg_date}</td>
+		        <td>${board.bd_views}</td>
+		        <td>${board.bd_up}/${board.bd_down}</td>
+		      </tr>
+	      </c:forEach>
 	    </tbody>
 	  </table>
 	  <a href="<%=request.getContextPath()%>/board/insert" class="btn btn-outline-warning">글쓰기</a>
 </div>
-
 </body>
 </html>

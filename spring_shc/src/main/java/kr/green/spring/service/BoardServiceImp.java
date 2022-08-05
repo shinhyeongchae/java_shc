@@ -1,5 +1,7 @@
 package kr.green.spring.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +28,13 @@ public class BoardServiceImp implements BoardService{
 		//로그인 안한 경우
 		if(user == null || user.getMe_id() == null)
 			return;
-		
 		//게시글 작성자로 회원 아이디를 저장
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
+	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardList() {
+		return boardDao.selectBoardList();
 	}
 }
