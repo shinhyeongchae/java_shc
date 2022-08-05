@@ -89,7 +89,7 @@ public class BoardController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boardService.deleteBoard(bd_num, user);
 		
-    mv.setViewName("redirect:/board/delete");
+    mv.setViewName("redirect:/board/list");
     return mv;
 	}
 }
