@@ -169,7 +169,13 @@
 	    <artifactId>spring-jdbc</artifactId>
 	    <version>${org.springframework-version}</version>
 		</dependency>
-		
+		<!-- lombox 의존성 추가 -->
+		<!-- lombok -->
+    <dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.24</version>
+    </dependency>
 	</dependencies>
     <build>
         <plugins>
