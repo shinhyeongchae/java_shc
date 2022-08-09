@@ -37,7 +37,7 @@
 	      </c:forEach>
 	    </tbody>
 	  </table>
-	  <a href="<%=request.getContextPath()%>/board/insert" class="btn btn-outline-warning">글쓰기</a>
+	  <a href="<c:url value="/board/insert"></c:url>" class="btn btn-outline-warning">글쓰기</a>
 </div>
 </body>
 </html>
