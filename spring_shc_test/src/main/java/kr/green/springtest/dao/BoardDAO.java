@@ -1,0 +1,17 @@
+package kr.green.springtest.dao;
+
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.green.springtest.vo.BoardVO;
+
+public interface BoardDAO {
+
+	ArrayList<BoardVO> selectBoardList();
+
+	BoardVO selectBoard(@Param("bd_num")Integer bd_num);
+
+	void updateViews(@Param("bd_num")Integer bd_num);
+ 
+}
