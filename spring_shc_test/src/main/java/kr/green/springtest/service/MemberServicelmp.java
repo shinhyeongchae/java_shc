@@ -38,14 +38,14 @@ public class MemberServicelmp implements MemberService {
 		if(member == null || member.getMe_id() == null)
 			return null;
 			
-			MemberVO dbMember = memberDao.selectMember(member.getMe_id());
+			MemberVO user = memberDao.selectMember(member.getMe_id());
 			//가입된 아이디가 아니면
-			if(dbMember == null)
+			if(user == null)
 				return null;
 			
 			//아이디, 비번이 일치하는 경우
-			if(dbMember.getMe_pw().equals(member.getMe_pw()))
-				return dbMember;
+			if(user.getMe_pw().equals(member.getMe_pw()))
+				return user;
 			//아이디는 있지만 비번이 다른경우
 			return null;
 	}

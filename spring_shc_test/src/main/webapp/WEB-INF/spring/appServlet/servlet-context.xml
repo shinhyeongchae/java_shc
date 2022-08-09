@@ -29,19 +29,19 @@
 	</beans:bean>
 	     
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-	   <beans:property name="definitions">
-       <beans:list>
-           <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
-       </beans:list>
-	   </beans:property>
+    <beans:property name="definitions">
+      <beans:list>
+        <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
+      </beans:list>
+   	</beans:property>
 	</beans:bean>
 	
-	<beans:bean id="loginInterceptor" class="kr.green.springtest.interceptor.LoginInterceptor"></beans:bean>
-	
+	<beans:bean id="loginInterceptor" 
+		class="kr.green.springtest.interceptor.LoginInterceptor"></beans:bean>
 	<interceptors>
-		<interceptor>
-			<mapping path="/"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
+    <interceptor>
+      <mapping path="/login"/>
+      <beans:ref bean="loginInterceptor"/>
+    </interceptor>
 	</interceptors>
 </beans:beans>

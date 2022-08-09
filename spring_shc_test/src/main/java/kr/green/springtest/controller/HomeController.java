@@ -1,5 +1,7 @@
 package kr.green.springtest.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,6 @@ public class HomeController {
 	@RequestMapping(value= {"/"})
 	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
 	    mv.setViewName("/main/home");
-	    mv.addObject("setHeader", "타일즈");
-	    System.out.println(memberService.getEmail("qwe"));
 	    return mv;
 	}
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
@@ -40,6 +40,7 @@ public class HomeController {
 		}
 		return mv;
 	}
+  // Login	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginGet(ModelAndView mv) {
 		mv.setViewName("/main/login");
@@ -47,11 +48,21 @@ public class HomeController {
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginPOST(ModelAndView mv, MemberVO member) {
-			MemberVO dbMember = memberService.login(member);
-			System.out.println("로그인중 : " + dbMember);
-			mv.addObject("user", dbMember);
-	    mv.setViewName("redirect:/");
+			MemberVO user = memberService.login(member);
+			if(user != null)
+				mv.setViewName("redirect:/");
+			else
+				mv.setViewName("redirect:/login");
+			mv.addObject("user", user);
+			System.out.println(user);
 	    return mv;   
+	}
+	// Logout
+	@RequestMapping(value="/logout")
+	public ModelAndView logout(ModelAndView mv, HttpSession session) {
+		session.removeAttribute("user");
+		mv.setViewName("redirect:/");
+		return mv;
 	}
 }
 
