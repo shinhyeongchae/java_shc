@@ -7,17 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
-		<form method="post" class="mt-5">
-			<h1>게시글 등록</h1>
-			<div class="form-group">
-			  <input type="text" class="form-control" name="bd_title" placeholder="제목">
-			</div>
-			<div class="form-group">
-			  <textarea class="form-control" rows="10"  name="bd_content" placeholder="내용"></textarea>
-			</div>
-			<button class="btn btn-outline-primary col-12 mb-3">게시글 등록</button>
-		</form>
-	</div>
+	<form class="container" method="post">
+		<h1>게시글 등록</h1>
+		<div class="form-group">
+		  <label for="bd_title">제목:</label>
+		  <input type="text" class="form-control" name="bd_title" id="bd_title">
+		</div>
+		<div class="form-group">
+		  <label for="bd_content">내용:</label>
+		  <textarea class="form-control" rows="10" name="bd_content" id="bd_content"></textarea>
+		</div>
+		<button class="btn btn-outline-success col-12">게시글 등록</button>
+	</form>
 </body>
-</html>  
+</html>
