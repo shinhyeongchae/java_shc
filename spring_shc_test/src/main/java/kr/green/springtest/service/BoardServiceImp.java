@@ -39,7 +39,7 @@ public class BoardServiceImp implements BoardService{
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
 	}
-
+	//게시글 수정기능
 	@Override
 	public void updateBoard(BoardVO board, MemberVO user) {
 		if(board == null || user == null)
@@ -58,5 +58,20 @@ public class BoardServiceImp implements BoardService{
 			return;
 		
 		boardDao.updateBoard(board);
+	}
+	// 게시글 삭제기능
+	@Override
+	public void deleteBoard(Integer bd_num, MemberVO user) {
+		if(user ==null)
+			return;
+		BoardVO dbBoard = boardDao.selectBoard(bd_num);
+		
+		if(dbBoard == null || !dbBoard.getBd_del().equals("N"))
+			return;
+		
+		if(!dbBoard.getBd_me_id().equals(user.getMe_id()))
+			return;
+		dbBoard.setBd_del("Y");
+		boardDao.updateBoard(dbBoard);
 	}
 }
