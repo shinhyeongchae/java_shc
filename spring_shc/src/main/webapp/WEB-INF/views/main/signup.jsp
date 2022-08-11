@@ -24,6 +24,7 @@
 			  <label for="me_id">아이디:</label>
 			  <input type="text" class="form-control" id="me_id" name="me_id">
 			</div>
+			<button type="button" class="btn btn-outline-success col-12" id="idCheck">아이디 중복확인</button>
 			<div class="form-group">
 			  <label for="me_pw">비밀번호:</label>
 			  <input type="password" class="form-control" id="me_pw" name="me_pw">
@@ -129,6 +130,22 @@
 	    },
 	    "Please check your input."
 		);
+		
+		$(function(){
+			$('#idCheck').click(function(){
+				$.ajax({
+	        async:false,
+	        type:'POST',
+	        data: JSON.stringify(??),
+	        url: '<%=request.getContextPath()%>/test',
+	        dataType:"json",
+	        contentType:"application/json; charset=UTF-8",
+	        success : function(data){
+	        	console.log(data);
+	        }
+		    });
+			})
+		})
 	</script>
 </body>
 </html>
