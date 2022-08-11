@@ -5,23 +5,22 @@
 <mapper namespace="kr.green.spring.dao.BoardDAO">
   <insert id="insertBoard">
   	insert into board(bd_title, bd_content, bd_me_id, bd_ori_num, bd_depth)
-		select #{b.bd_title}, #{b.bd_content}, #{b.bd_me_id}, ifnull(max(bd_num),0) + 1,1 from board;
+		select #{b.bd_title}, #{b.bd_content}, #{b.bd_me_id}, ifnull(max(bd_num),0) + 1, 
+			1 from board
   </insert>
-  
   
   <select id="selectBoardList" resultType="kr.green.spring.vo.BoardVO">
   	select * from board 
   		where bd_del = 'N' 
   		<if test="cri.searchType == 'all'">
-  		and (bd_title like concat('%',#{cri.search},'%') or bd_me_id like concat('%',#{cri.search},'%'))
+  		and (bd_title like concat('%', #{cri.search} ,'%') or bd_me_id like concat('%',#{cri.search} ,'%'))
   		</if>
   		<if test="cri.searchType != 'all'">
-  		and ${cri.searchType} like concat('%',#{cri.search},'%') 
+  		and ${cri.searchType} like concat('%',#{cri.search} ,'%')
   		</if>
   		order by bd_num desc 
-  		limit #{cri.pageStart},#{cri.perPageNum}
+  		limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
-  
   
   <update id="updateViews">
   	update board
@@ -32,22 +31,38 @@
   	select * from board where bd_num = #{bd_num}
   </select>
   <update id="updateBoard">
- 	update board
- 		set bd_title = #{b.bd_title}, bd_content = #{b.bd_content}, bd_up_date = now()
- 		where bd_num = #{b.bd_num}
- </update>
- <update id="deleteBoard">
- 	update board
- 		set bd_del = #{bd_del}
- 		where bd_num = #{bd_num}
- </update>
- 	<select id="selectTotalCount" resultType="int">
- 		select count(*) from board where bd_del = 'N'
- 			<if test="cri.searchType == 'all'">
-  		and (bd_title like concat('%',#{cri.search},'%') or bd_me_id like concat('%',#{cri.search},'%'))
+  	update board
+  		set bd_title = #{b.bd_title}, bd_content = #{b.bd_content}, bd_up_date = now()
+  		where bd_num = #{b.bd_num}
+  </update>
+  <update id="deleteBoard">
+  	update board
+  		set bd_del = #{bd_del}
+  		where bd_num = #{bd_num}
+  </update>
+  <select id="selectTotalCount" resultType="int">
+  	select count(*) from board where bd_del = 'N' 
+  		<if test="cri.searchType == 'all'">
+  		and (bd_title like concat('%', #{cri.search} ,'%') or bd_me_id like concat('%',#{cri.search} ,'%'))
   		</if>
   		<if test="cri.searchType != 'all'">
-  		and ${cri.searchType} like concat('%',#{cri.search},'%') 
+  		and ${cri.searchType} like concat('%',#{cri.search} ,'%')
   		</if>
- 	</select>
+  </select>
+  <select id="selectLikes" resultType="kr.green.spring.vo.LikesVO">
+  	select * from likes where li_me_id = #{li.li_me_id} and li_bd_num = #{li.li_bd_num}
+  </select>
+  <insert id="insertLikes">
+  	insert into likes(li_bd_num, li_me_id, li_state)
+  		values(#{li.li_bd_num},#{li.li_me_id},#{li.li_state})
+  </insert>
+  <update id="updateLikes">
+  	update likes set li_state = #{li.li_state} where li_num = #{li.li_num}
+  </update>
+  <update id="updateBoardLikes">
+  	update board set
+			bd_up = (select count(*) from likes where li_bd_num = #{bd_num} and li_state = 1),
+	    bd_down = (select count(*) from likes where li_bd_num = #{bd_num} and li_state = -1)
+		where bd_num = #{bd_num}
+  </update>
 </mapper>
