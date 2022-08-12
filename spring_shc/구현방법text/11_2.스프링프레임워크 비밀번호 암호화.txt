@@ -1,0 +1,36 @@
+비밀번호 암호화
+
+참고문서 
+깃허브 - 강사깃허브 - 독스 - 스프링프레임워크 - 비밀번호 암호화예제
+
+비밀번호 암호화를 위한 사전 준비 작업
+1. pom.xml
+- 의존성 추가
+- 샘플코드 복붙
+
+2. /WEB_INF/spring 폴더에 spring-sercurity.xml
+- spring-security.xml 생성
+- 샘플코드 복붙
+
+3. web.xml에 spring-security.xml를 contextConfigLocation의 
+	value에 추가
+- 문서참고
+
+4. MemberServiceImp
+-@Autowired
+BCryptPasswordEncoder passwordEncoder;
+
+
+======================================
+- 회원가입에 적용
+1. MemberServiceImp
+- 회원가입 하기전, 비밀번호 암호화를 함
+- 문서 샘플 코드 참고
+  String encPw = passwordEncoder.encode("1234");
+  user.setPw(encPw);
+
+- 로그인에 적용
+1. MemberServiceImp
+- 비번확인을 equals가 아닌 matches를 이용하여 비교
+- 문서 샘플코드 참고
+passwordEncoder.matches(암호화안된비번, 암호화안된비번())

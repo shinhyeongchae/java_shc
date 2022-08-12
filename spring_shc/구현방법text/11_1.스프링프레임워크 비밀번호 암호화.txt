@@ -1,0 +1,27 @@
+비밀번호 암호화
+
+참고문서 
+깃허브 - 강사깃허브 - 독스 - 스프링프레임워크 - 비밀번호 암호화예제
+
+
+비밀번호 암호화를 위하여 Spring-security를 이용한다.
+회원 가입 시 비밀번호를 인코딩하여 저장한다.
+로그인 시 입력한 비밀 번호와 인코딩 된 비밀번호를 비교하여 (디코딩을 하지 않고서) 같으면 로그인 성공, 실패하면 로그인 실패
+
+1. pom.xml에 의존성을 추가
+다음 3개의 의존성을 추가
+ -spring-security-web
+ -spring-security-core
+ -spring-security-config
+
+2. spring-security.xml 생성
+- /WEB_INF/spring 폴더에 spring-sercurity.xml 생성
+
+3. web.xml에 spring-security.xml를 등록
+
+4. 회원가입시 비밀번호를 암호화
+- 회원 가입 시 암호화가 진행되는 Controller에 BCryptPasswordEncoder 멤버 객체 추가
+- 암호화를 위해 encode 메소드 사용 - 테스트를 위해 급히 만듬
+
+5. 로그인시 비밀번호를 비교 
+- maches 메소드를 이용하여 암호화 되지 않은 비밀번호와 암호화 된 비밀번호를 비교한다.
