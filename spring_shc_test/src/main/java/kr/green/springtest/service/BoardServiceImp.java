@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.springtest.dao.BoardDAO;
+import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.vo.BoardVO;
 import kr.green.springtest.vo.MemberVO;
 
@@ -16,17 +17,17 @@ public class BoardServiceImp implements BoardService{
 	BoardDAO boardDao;
 
 	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		return boardDao.selectBoardList();
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		return boardDao.selectBoardList(cri);
 	}
 
 	@Override
-	public BoardVO getBoard(Integer bd_num) {
+	public BoardVO getBoard(int bd_num) {
 		return boardDao.selectBoard(bd_num);
 	}
 
 	@Override
-	public void updateViews(Integer bd_num) {
+	public void updateViews(int bd_num) {
 		boardDao.updateViews(bd_num);
 	}
 
@@ -39,7 +40,7 @@ public class BoardServiceImp implements BoardService{
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
 	}
-	//게시글 수정기능
+
 	@Override
 	public void updateBoard(BoardVO board, MemberVO user) {
 		if(board == null || user == null)
@@ -59,10 +60,10 @@ public class BoardServiceImp implements BoardService{
 		
 		boardDao.updateBoard(board);
 	}
-	// 게시글 삭제기능
+
 	@Override
-	public void deleteBoard(Integer bd_num, MemberVO user) {
-		if(user ==null)
+	public void deleteBoard(int bd_num, MemberVO user) {
+		if(user == null)
 			return;
 		BoardVO dbBoard = boardDao.selectBoard(bd_num);
 		
@@ -73,5 +74,10 @@ public class BoardServiceImp implements BoardService{
 			return;
 		dbBoard.setBd_del("Y");
 		boardDao.updateBoard(dbBoard);
+	}
+
+	@Override
+	public int getTotalCount() {
+		return boardDao.selectTotalCount();
 	}
 }
