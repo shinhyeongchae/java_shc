@@ -44,6 +44,7 @@ public class PageMaker {
 		next = endPage * cri.getPerPageNum() >= totalCount ? false:true;//마지막 페이지네이션이면 다음버튼 비활성화
 		//next = criteria.getPage() == endPage ? false : true;//현재 페이지가 마지막 페이지이면 다음버튼 비활성화 
 	}
+	
 	public PageMaker(Criteria cri, int displayPageNum, int totalCount) {
 		this.cri = cri;
 		this.displayPageNum = displayPageNum;
