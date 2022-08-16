@@ -1,4 +1,4 @@
-Pagination + Search  기능
+Pagination + Search  기능-
 
 -검색기능
  - 검색어를 입력하기 위한곳=> 검색창
