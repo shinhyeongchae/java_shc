@@ -7,75 +7,91 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 회원가입 -->
-	<div class="contanier">
+	<div class="container">
 		<form method="post">
-		  <!--회원가입--> 
-			<h1 class="text-center">회원가입</h1>
-			<!--아이디-->
+			<h1>회원가입</h1>
 			<div class="form-group">
-			  <label for="me_id">아이디</label>
+			  <label for="me_id">아이디:</label>
 			  <input type="text" class="form-control" id="me_id" name="me_id">
 			</div>
-			<!--비밀번호-->
+			<button class="btn btn-outline-success col-12" type="button" id="idCheck">아이디 중복 확인</button>
 			<div class="form-group">
 			  <label for="me_pw">비밀번호:</label>
 			  <input type="password" class="form-control" id="me_pw" name="me_pw">
 			</div>
-			<!--비밀번호 확인-->
 			<div class="form-group">
 			  <label for="me_pw2">비밀번호 확인:</label>
 			  <input type="password" class="form-control" id="me_pw2" name="me_pw2">
 			</div>
-			<!-- 아이디, 비밀번호, 비밀번호 확인 end -->
-			<!--성별-->
 			<div class="form-group">
-			  <label>성별:</label>
+			  <label for="me_email">이메일:</label>
+			  <input type="text" class="form-control" id="me_email" name="me_email">
 			</div>
-			<!--남성-->
+			<div class="form-group">
+			  <label for="me_birth">생일:</label>
+			  <input type="text" class="form-control" id="me_birth" name="me_birth">
+			</div>
 			<div class="form-group">
 				<div class="form-check-inline">
 				  <label class="form-check-label">
 				    <input type="radio" class="form-check-input" name="me_gender" value="M">남성
 				  </label>
 				</div>
-				<!--여성-->
 				<div class="form-check-inline">
 				  <label class="form-check-label">
 				    <input type="radio" class="form-check-input" name="me_gender" value="F">여성
 				  </label>
 				</div>
-				<div>
-					<label class="error" id="me_gender-error" for="me_gender"></label>
-				</div>
 			</div>
-			<!-- 남성, 여성 선택 end -->
-			<!--이메일-->
-			<div class="form-group">
-			  <label for="me_email">이메일</label>
-			  <input type="text" class="form-control" id="me_email" name="me_email">
-			</div>
-			<!-- 이메일 end -->
-			<!--생년월일-->
-			<div class="form-group">
-			  <label for="me_birth">생년월일</label>
-			  <input type="text" class="form-control" id="me_birth" name="me_birth">
-			</div>
-			<!-- 생년월일 end -->
-			<!--회원가입버튼-->
-			<button class="btn btn-outline-success col-12 mb-5">회원가입</button>
+			<button class="btn btn-outline-success col-12">회원가입</button>
 		</form>
 	</div>
-	<!-- 스크립트 시작 -->
 	<script type="text/javascript">
-		$(function(){
-			$( "#me_birth" ).datepicker({
-	      changeMonth: true,
-	      changeYear: true,
-	      dateFormat: 'yy-mm-dd',
-	      yearRange: "1900:2022"
-			});
+	let idCheck = false;
+	
+	$(function(){
+		$('#idCheck').click(function(){
+			let me_id = $('[name=me_id]').val();
+			if(me_id.trim().length == 0){
+				alert('아이디를 입력하세요.')
+				return;
+			}
+			
+			let obj = {
+					me_id : me_id
+			}
+			
+			$.ajax({
+	      async:false,
+	      type:'POST',
+	      data:JSON.stringify(obj),
+	      url:"<%=request.getContextPath()%>/id/check",
+	      dataType:"json",
+	      contentType:"application/json; charset=UTF-8",
+	      success : function(data){
+	    	  //data.check
+	    	  //data['check']
+          if(data.check){
+        	  alert('사용 가능한 아이디입니다.')
+        	  idCheck = true;
+          }else{
+        	  alert('이미 사용중인 아이디입니다.')
+          }
+	      }
+		  });
+		});
+		
+		$('[name=me_id]').change(function(){
+			idCheck = false;
 		})
+		$('form').submit(function(){
+			if(idCheck)
+				return true;
+			
+			alert('아이디 중복검사를 확인하세요.')
+			return false;
+		})	
+	})
 	</script>
 </body>
 </html>
