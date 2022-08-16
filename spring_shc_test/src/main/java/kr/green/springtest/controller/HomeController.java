@@ -71,4 +71,5 @@ public class HomeController {
     map.put("check", memberService.idCheck(member));
     return map;
 	}
+	
 }
