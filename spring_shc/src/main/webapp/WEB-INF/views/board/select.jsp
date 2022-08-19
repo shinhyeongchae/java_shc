@@ -32,7 +32,15 @@
 			<div class="form-group">
 			  <textarea class="form-control" rows="10" name="bd_content" readonly>${board.bd_content}</textarea>
 			</div>
-			
+			<div class="form-group">
+			  <label>첨부파일</label>
+			  <c:if test="${fileList.size() == 0 }">없음</c:if>
+			  <c:if test="${fileList.size() != 0 }">
+			  	<c:forEach items="${fileList}" var="file">
+				  	<a href="<c:url value="/file${file.fi_name}"></c:url>" class="form-control" download="${file.fi_ori_name}">${file.fi_ori_name}</a>
+			  	</c:forEach>
+			  </c:if>
+			</div>
 			<div class="list-comment">
 				<div class="item-comment">
 					<div class="co_me_id">작성자</div>
@@ -183,7 +191,7 @@
 			$(this).siblings('.co_content').hide();
 			$(this).hide();//수정버튼 감춤
 			$(this).siblings('.btn-comment-delete').hide();//삭제버튼 감춤
-			$(this).siblings('.btn-comment-reply').hide();//답글버튼 감춤
+			$(this).siblings('.btn-comment-reply').hide();//답글버튼 갑춤
 			str = '<button class="btn-comment-update-complete">수정완료</button>'
 			str += '<button class="btn-comment-update-cancel">취소</button>';
 			$(this).parent().append(str);
@@ -228,7 +236,7 @@
 		$(document).on('click', '.btn-comment-reply', function(){
 			let id = '${user.me_id}';
 			if(id == ''){
-				if(confirm('추천/비추천은 로그인을 해야 합니다. 로그인을 하시겠습니까?')){
+				if(confirm('댓글 답글은 로그인을 해야 합니다. 로그인을 하시겠습니까?')){
 					location.href = '<%=request.getContextPath()%>/login'
 					return;
 				}
@@ -273,17 +281,18 @@
 		    }
 		  });
 		})
-		//답글 취소버튼 클릭
+		//답글취소버튼 클릭
 		$(document).on('click', '.btn-cancel-reply', function(){
 			$(this).siblings('.co_content_reply').remove();
 			$(this).siblings('.btn-insert-reply').remove();
-			$(this).siblings('.br').remove();
+			$(this).siblings('br').remove();
 			$(this).siblings('.btn-comment-reply').show();//답글 보임
 			$(this).siblings('.btn-comment-update').show();//수정버튼 보임
 			$(this).siblings('.btn-comment-delete').show();//삭제버튼 보임
 			$(this).remove();
 		});
 	})
+	
 	
 	
 	function getCommentList(cri, bd_num){

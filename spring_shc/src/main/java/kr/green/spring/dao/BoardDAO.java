@@ -52,4 +52,10 @@ public interface BoardDAO {
 
 	void insertFile(@Param("fi")FileVO fileVo);
 
+	ArrayList<FileVO> selectFileList(@Param("bd_num")Integer bd_num);
+
+	void deleteFile(@Param("fi_num")int fi_num);
+
+	FileVO selectFile(@Param("fi_num")int fi_num);
+
 }
