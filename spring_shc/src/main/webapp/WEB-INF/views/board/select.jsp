@@ -286,7 +286,6 @@
 	})
 	
 	
-	
 	function getCommentList(cri, bd_num){
 		$.ajax({
 	    async: true,
