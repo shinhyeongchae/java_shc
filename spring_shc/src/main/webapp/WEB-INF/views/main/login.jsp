@@ -19,10 +19,8 @@
 			</div>
 			<button class="btn btn-outline-success col-12 mb-3">전송</button>
 		</form>
-			
-		<script type="text/javascript">
-		
-		</script>
+		<a href="<c:url value="/find?type=id"></c:url>">아이디 찾기</a>
+		<a href="<c:url value="/find?type=pw"></c:url>">비번 찾기</a>
 	</div>
 </body>
 </html>

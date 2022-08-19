@@ -127,4 +127,19 @@ public class HomeController {
 		System.out.println(member);
     return memberService.checkId(member);
 	}
+	@RequestMapping(value="/find", method=RequestMethod.GET)
+	public ModelAndView findGet(ModelAndView mv, String type) {
+		
+		mv.addObject("type",type);
+		mv.setViewName("/main/find");
+		return mv;
+	}
+	@RequestMapping(value ="/find/id" , method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object, Object> findId(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		ArrayList<String> idList = memberService.getIdList(member);
+		map.put("idList", idList);
+    return map;
+	}
 }
