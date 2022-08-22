@@ -51,27 +51,26 @@ public class HomeController {
 	 * */
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv){
-	    mv.setViewName("/main/home");
-	    return mv;
+		mv.setViewName("/main/home");
+    return mv;
 	}
 		
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginGet(ModelAndView mv, HttpServletRequest request){
-			String url = request.getHeader("Referer");
-			System.out.println(url);
-			//로그인 화면을 url을 직접 입력하지 않고, url에 /login이 없으면 => 돌아가야할 url이 있으면
-			if(url != null && !url.contains("/login"))
-				request.getSession().setAttribute("redirectURL", url);
-	    mv.setViewName("/main/login");
-	    return mv;
+		String url = request.getHeader("Referer");
+		//로그인 화면을 url을 직접 입력하지 않고, url에 /login이 없으면 => 돌아가야할 url이 있으면
+		if(url != null && !url.contains("/login"))
+			request.getSession().setAttribute("redirectURL", url);
+    mv.setViewName("/main/login");
+    return mv;
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView loginPost(ModelAndView mv, MemberVO member){
-			MemberVO dbMember = memberService.login(member);
-			System.out.println("로그인 중 : " + dbMember);
-			mv.addObject("user", dbMember);
-	    mv.setViewName("redirect:/");
-	    return mv;
+		MemberVO dbMember = memberService.login(member);
+		System.out.println("로그인 중 : " + dbMember);
+		mv.addObject("user", dbMember);
+    mv.setViewName("redirect:/");
+    return mv;
 	}
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public ModelAndView signupGet(ModelAndView mv) {
@@ -124,22 +123,38 @@ public class HomeController {
 	@RequestMapping(value ="/id/check")
 	@ResponseBody
 	public boolean idCheck(@RequestBody MemberVO member){
-		System.out.println(member);
-    return memberService.checkId(member);
+		return memberService.checkId(member);
 	}
+	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
-	public ModelAndView findGet(ModelAndView mv, String type) {
+	public ModelAndView logoutGet(ModelAndView mv, String type) {
 		
-		mv.addObject("type",type);
+		mv.addObject("type", type);
 		mv.setViewName("/main/find");
 		return mv;
 	}
-	@RequestMapping(value ="/find/id" , method=RequestMethod.POST)
+	@RequestMapping(value ="/find/id", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<Object, Object> findId(@RequestBody MemberVO member){
+	public Map<Object,Object> findId(@RequestBody MemberVO member){
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
 		ArrayList<String> idList = memberService.getIdList(member);
 		map.put("idList", idList);
-    return map;
+		return map;
+	}
+	@RequestMapping(value ="/find/pw", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object,Object> findPw(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		//memberService.sendEmail("제목", "내용", "hyungchae798@gmail.com");
+		boolean res = false;
+		boolean exception = false;
+		try {
+			res = memberService.findPw(member);
+		}catch(Exception e) {
+			exception = true;
+		}
+		map.put("res", res);
+		map.put("exception", exception);
+		return map;
 	}
 }

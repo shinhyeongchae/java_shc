@@ -16,7 +16,7 @@
 	<!-- 프로젝트 내부 폴더인 경우 webapp폴더를 기준으로 탐색 -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<!-- file:/// ==> 프로젝트 외부 폴더 -->
-	<resources mapping="/file/**" location="file:///D:/git/uploadfiles/" />
+	<resources mapping="/file/**" location="file:///C:/git/uploadfiles/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -58,6 +58,7 @@
     <interceptor>
       <mapping path="/signup"/>
       <mapping path="/login"/>
+      <mapping path="/find"/>
       <beans:ref bean="guestInterceptor"/>
     </interceptor>
     <interceptor>
