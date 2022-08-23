@@ -1,5 +1,6 @@
 package kr.green.springtest.controller;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,6 +113,15 @@ public class BoardController {
 		map.put("res", res);
 		//System.out.println(user);
 		//System.out.println(comment);
+    return map;
+	}
+	@RequestMapping(value="/ajax/comment/list/{bd_num}")
+	@ResponseBody
+	public Map<Object,Object> ajaxCommentInsert(
+			@RequestBody Criteria cri, @PathVariable("bd_num") int bd_num){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		System.out.println(bd_num);
+		System.out.println(cri);
     return map;
 	}
 }
