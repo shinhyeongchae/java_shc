@@ -61,6 +61,7 @@
   <a href="<c:url value="/board/insert"></c:url>" class="btn btn-outline-success btn-board-insert">글쓰기</a>
 </div>
 <script type="text/javascript">
+//비회원으로 로그인시 글쓰기 버튼을 클릭하면 알림창을 띄운뒤, 로그인화면으로 이동하는 url구성
  $(function(){
 	 $('.btn-board-insert').click(function(e){
 		 if('${user.me_id}' == ''){
