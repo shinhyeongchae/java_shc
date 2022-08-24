@@ -32,6 +32,8 @@ public interface BoardService {
 
 	ArrayList<CommentVO> getCommentList(int bd_num, Criteria cri);
 
-	int getTotalCountComment(int bd_num);
+	int getCommentTotalCount(int bd_num);
+
+	boolean deleteComment(CommentVO comment, MemberVO user);
 
 }

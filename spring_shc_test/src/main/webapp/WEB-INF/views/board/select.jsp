@@ -57,21 +57,21 @@
 			<div class="list-comment">
 				<div class="media border p-3">
 			    <div class="media-body">
-			      <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4>
+			      <h4>John Doe <small><i>February 19, 2016</i></small></h4>
 			      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>      
 			    </div>
 			    <div class="btn-box">
-					  <button class="btn btn-ouiline-danger" style="disply:block">수정</button>
-					  <button class="btn btn-ouiline-success mt-1" style="disply:block">삭제</button>
-				  </div>
+			    	<button class="btn btn-outline-danger" style="display: block">수정</button>
+			    	<button class="btn btn-outline-success  mt-1" style="display: block">삭제</button>
+			    </div>
 			  </div>
 			</div>
-			 <ul class="pagination-comment pagination justify-content-center mt-3">
-			    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-			    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-			    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-			    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-			  </ul>
+			<ul class="pagination-comment pagination justify-content-center mt-3">
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+		  </ul>
 			<div>
 				<div class="form-group">
 				  <textarea class="form-control" rows="5" name="co_content"></textarea>
@@ -86,15 +86,7 @@
 			<h1>관리자에 의해 삭제된 게시글입니다.</h1>
 		</c:if>
 	</div>
-	<!-- 스크립트 시작 -->
 	<script type="text/javascript">
-	
-		let criteria = {
-				page       : 1,
-				perPageNum : 5
-		}
-		let bd_num = '${board.bd_num}'
-		
 		$(function(){
 			$('.btn-up, .btn-down').click(function(){
 				let id = '${user.me_id}';
@@ -175,13 +167,13 @@
 		
 		//전역변수들
 		let cri = {
-			page : 1,
-			perPageNum : 5
+				page : 1,
+				perPageNum : 5
 		}
 		
-		//댓글 게시글 리스트 가져오는 함수
+		//함수들
 		function getCommentList(cri){
-			if(cri == undefined || cri == null || typeof cri !='object'){
+			if(cri == undefined ||cri == null || typeof cri !='object'){
 				cri = {};
 			}
 			if(isNaN(cri.page))
@@ -189,8 +181,6 @@
 			ajaxPost(false, cri, '/ajax/comment/list/'+${board.bd_num}, commentListSuccess);
 		}
 		
-		
-		//댓글 등록하는 함수
 		function commentInsertSuccess(data){
 			if(data.res)
 				alert('댓글 등록이 완료됐습니다.')
@@ -202,24 +192,24 @@
 		function commentListSuccess(data){
 			let list = data.list;
 			let str = '';
-			//반복문을 이용하여 댓글을 구성
+			//반복문을 이용하여 댓글들 구성
 			for(co of list){
 				str += '<div class="media border p-3">';
-				str += 		'<div class="media-body">';
-			 	str += 				'<h4>'+co.co_me_id+'<small><i>'+co.co_reg_date_str+'</i></small></h4>';
-	      str += 				'<p>'+co.co_content+'</p>';
-	      str += 		'</div>';
-	      str += 		'<div class="btn-box">';
-	    	//본인이 작성한 댓글에만 삭제버튼을 추가
-	      if(co.co_me_id == '${user.me_id}'){
-	      	str += 			'<button class="btn btn-ouiline-danger btn-co-update" style="disply:block">수정</button>';
-        	str += 		  '<button data-target="'+co.co_num+'" class="btn btn-ouiline-success btn-co-delete mt-1" style="disply:block">삭제</button>';
-	      }
-	      str += 	  '</div>';
-    	  str += '</div>';
+			  str +=   '<div class="media-body">';
+			  str +=     '<h4>'+co.co_me_id+'<small><i> '+co.co_reg_date_str+'</i></small></h4>';
+			  str +=     '<p>'+co.co_content+'</p>';      
+			  str +=   '</div>';
+			  str +=   '<div class="btn-box">'
+			  if(co.co_me_id == '${user.me_id}'){
+					str +=	 	'<button class="btn btn-outline-danger btn-co-update" style="display: block">수정</button>';
+					str +=   	'<button data-target="'+co.co_num+'" class="btn btn-outline-success btn-co-delete mt-1" style="display: block">삭제</button>';
+			  }
+				str +=    '</div>';
+			  str += '</div>';;
 			}
-			//댓글들을 화면에 출력 삭제 기능
+			//댓글들을 화면에 출력
 			$('.list-comment').html(str);
+			//댓글 삭제버튼 이벤트 등록
 			$('.btn-co-delete').click(function(){
 				let co_num = $(this).data('target');
 				let comment = {
@@ -235,25 +225,30 @@
 				pmStr +=	'<li class="page-item" data-page="'+(pm.startPage-1)+'"><a class="page-link" href="javascript:void(0);">이전</a></li>';
 			for(i = pm.startPage; i<= pm.endPage; i++){
 				if(i == pm.cri.page)
-					pmStr += '<li class="page-item active" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+					pmStr +=	'<li class="page-item active" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
 				else
-		    	pmStr += '<li class="page-item" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+		    	pmStr +=	'<li class="page-item" data-page="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
 			}
 			if(pm.next)
-    		pmStr += '<li class="page-item" data-page="'+(pm.endPage+1)+'"><a class="page-link" href="javascript:void(0);">다음</a></li>';
-    	//댓글 페이지네이션 화면에 출력
-    	$('.pagination-comment').html(pmStr);
-    	//페이지네이션에서 페이지 이벤트 등록
-    	$('.pagination-comment .page-item').click(function(){
-    		cri.page = $(this).data('page');
-    		getCommentList(cri);
-    	})
+		  	pmStr += 	'<li class="page-item" data-page="'+(pm.endPage+1)+'"><a class="page-link" href="javascript:void(0);">다음</a></li>';
+		  //댓글 페이지네이션 화면에 출력
+		  $('.pagination-comment').html(pmStr);
+		  //페이지네이션에서 페이지 이벤트 등록
+		  $('.pagination-comment .page-item').click(function(){
+			  cri.page = $(this).data('page');
+			  getCommentList(cri);
+		  })
 		}
 		function commentUpdateSuccess(data){
 			console.log(data);
 		}
 		function commentDeleteSuccess(data){
-			console.log(data);
+			if(data.res){
+				alert('댓글 삭제가 완료됐습니다.');
+			}else{
+				alert('댓글 삭제에 실패했습니다.');
+			}
+			getCommentList(cri);
 		}
 		
 		function ajaxPost(async, dataObj, url, success){
@@ -269,7 +264,6 @@
 	      }
 		  });
 		}
-		
 	</script>
 </body>
 </html>

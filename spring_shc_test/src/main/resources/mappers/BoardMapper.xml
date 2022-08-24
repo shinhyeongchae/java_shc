@@ -62,15 +62,21 @@
 	</update>
 	<insert id="insertComment">
 		insert into comments(co_me_id, co_bd_num, co_content, co_ori_num, co_depth, co_order)
-		select #{co.co_me_id},#{co.co_bd_num},#{co.co_content}, ifnull(max(co_num),0)+1, 1, 1 
+		select #{co.co_me_id}, #{co.co_bd_num}, #{co.co_content}, ifnull(max(co_num),0)+1, 1, 1
 			from comments
 	</insert>
-	<select id="selectCommentList" resultType="kr.green.springtest.vo.CommentVO">
+	<select id="selectCommetList" resultType="kr.green.springtest.vo.CommentVO">
 		select * from comments where co_bd_num = #{bd_num} 
-		order by co_num desc 
-  		limit #{cri.pageStart}, #{cri.perPageNum}
+			order by co_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="selectCommentTotalCount" resultType="int">
 		select count(*) from comments where co_bd_num = #{bd_num}
 	</select>
+	<select id="selectComment" resultType="kr.green.springtest.vo.CommentVO">
+		select * from comments where co_num = #{co_num}
+	</select>
+	<delete id="deleteComment">
+		delete from comments where co_num = #{co_num}
+	</delete>
 </mapper>
