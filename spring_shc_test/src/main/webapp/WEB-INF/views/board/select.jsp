@@ -55,12 +55,9 @@
 			</c:if>
 			<div class="form-group">
 			  <label for="">첨부파일</label>
-			  
 			  <c:forEach items="${fileList}" var="fi">
 					<a href="<c:url value="/file${fi.fi_name}"></c:url>" class="form-control" download="${fi.fi_ori_name}">${fi.fi_ori_name}</a>
-					<a href="#" class="form-control">파일명</a>
 				</c:forEach>
-				
 			</div>
 			<hr>
 			<div class="list-comment">
