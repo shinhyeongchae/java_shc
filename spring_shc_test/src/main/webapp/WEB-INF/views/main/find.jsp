@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container" style="text-align: center">
+<div class="container" style="text-align: center;">
   <br>
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
@@ -39,12 +39,14 @@
 			<div class="form-group">
 				<input type="text" class="form-control me_birth" style="margin-left:315px; width:450px;" placeholder="생일을 입력하세요(1990-01-01)">
 			</div>
-			<button class="btn btn-Info col-5 btn-find-id">비밀번호 찾기</button>
+			<button class="btn btn-Info col-5 btn-find-pw">비밀번호 찾기</button>
     </div>
   </div>
 </div>
 <script type="text/javascript">
 	$(function(){
+		$('[href="#${type}"').click();
+		
 		$('.btn-find-id').click(function(){
 			let me_email = $('#id .me_email').val();
 			let me_birth = $('#id .me_birth').val();
@@ -69,6 +71,34 @@
 					alert('일치하는 아이디가 없습니다.')
 				}else{
 					alert('회원님의 아이디는 아래와 같습니다.\n'+data.id)
+				}
+			})
+		})
+		
+		$('.btn-find-pw').click(function(){
+			let me_email = $('#pw .me_email').val();
+			let me_birth = $('#pw .me_birth').val();
+			
+			if(me_email.trim() == ''){
+				alert('이메일을 입력하세요.');
+				$('#pw .me_email').focus();
+				return;
+			}
+			let birthRegex = /^\d{4}-\d{2}-\d{2}$/
+			if(!birthRegex.test(me_birth)){
+				alert('생일을 올바르게 입력하세요.');
+				$('#pw .me_birth').focus();
+				return;
+			}
+			let obj = {
+					me_email : me_email,
+					me_birth : me_birth
+			}
+			ajaxPost(false, obj, '/ajax/find/pw', function(data){
+				if(data.res){
+					alert('입력한 이메일로 새 비밀번호를 발송했습니다.')
+				}else{
+					alert('없는 정보입니다.')
 				}
 			})
 		})
