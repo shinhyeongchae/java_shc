@@ -54,11 +54,11 @@ $(function(){
 							let url = '<%=request.getContextPath()%>/simg' + data.url;
 							thisObj.summernote('insertImage', url);		
 							}
-		 				});
-	    		}
-	    	}
-	 		}
-	 	});
+	 				});
+	   		}
+	   	}
+		}
+ 	});
 })
 </script>
 </body>
